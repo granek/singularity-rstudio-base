@@ -1,6 +1,11 @@
 [![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/3197)
 
 
+This Singularity image is intended to serve as base for all project images. 
+
+By default it starts up RStudio with an auto-selected port and password
+
+
 # Running Singularity Image
 Run a singularity-rstudio-base container with `singularity run shub://granek/singularity-rstudio-base`
 
