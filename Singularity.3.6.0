@@ -1,5 +1,5 @@
 BootStrap: library
-From: granek/singularity-rstudio:3.6.0
+From: granek/default/singularity-rstudio:3.6.0
 
 %labels
     Maintainer Josh Granek
