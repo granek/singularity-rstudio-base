@@ -61,6 +61,12 @@ cat $SESSION_INFO_FILE
 trap "{ rm -f $SESSION_INFO_FILE; }" EXIT
 
 #singularity run  --app rstudio $BIND_ARGS $SINGULARITY_IMAGE 
-rserver --auth-none 0 --auth-pam-helper rstudio_auth --www-port $RSTUDIO_PORT
+# Setting '--auth-minimum-user-id $UID' to fix error "Unable to connect to service"
+# by default RStudio gives this error when it is run by a user with UID less than 1000
+# this hack sets the minimum to the UID of the current user!
+RSERVER_OPTIONS="--auth-none 0 --auth-pam-helper rstudio_auth --www-port $RSTUDIO_PORT --auth-minimum-user-id $UID"
+# RSERVER_OPTIONS="--auth-none 0 --auth-pam-helper rstudio_auth --www-port $RSTUDIO_PORT"
+
+rserver $RSERVER_OPTIONS
 #   exec rserver "${@}"
 

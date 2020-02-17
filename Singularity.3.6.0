@@ -4,7 +4,8 @@ From: granek/default/singularity-rstudio:3.6.0
 %labels
     Maintainer Josh Granek
     Image_Name singularity-rstudio-base
-    Image_Version 0003
+    Image_Version 0002
+
 
 %runscript
   exec port_and_password "${@}"
