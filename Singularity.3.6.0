@@ -1,10 +1,10 @@
-BootStrap: localimage
-From: /tmp/singularity-rstudio.simg
+BootStrap: library
+From: granek/default/singularity-rstudio:3.6.0
 
 %labels
     Maintainer Josh Granek
     Image_Name singularity-rstudio-base
-    Image_Version 0002
+    Image_Version 0003
 
 %runscript
   exec port_and_password "${@}"
@@ -57,3 +57,4 @@ From: /tmp/singularity-rstudio.simg
 
 mkdir -p /data
 mkdir -p /workspace
+
