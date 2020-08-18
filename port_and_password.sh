@@ -60,6 +60,29 @@ printf "RStudio Password:\t$RSTUDIO_PASSWORD\n" >> $SESSION_INFO_FILE
 cat $SESSION_INFO_FILE
 trap "{ rm -f $SESSION_INFO_FILE; }" EXIT
 
+
+#-------------------------------------------------------
+# rserver wants to write to /var by default, so let's try to fix that
+TMPVAR_DIR=`mktemp -d`
+
+# check if tmp dir was created
+if [[ ! "$TMPVAR_DIR" || ! -d "$TMPVAR_DIR" ]]; then
+  echo "Could not create temp dir"
+  exit 1
+fi
+
+# deletes the temp directory
+function cleanup {      
+  rm -rf "$TMPVAR_DIR"
+  echo "Deleted temp working directory $TMPVAR_DIR"
+}
+
+# register the cleanup function to be called on the EXIT signal
+trap cleanup EXIT
+
+# implementation of script starts here
+#-------------------------------------------------------
+
 #singularity run  --app rstudio $BIND_ARGS $SINGULARITY_IMAGE 
 # Setting '--auth-minimum-user-id $UID' to fix error "Unable to connect to service"
 # by default RStudio gives this error when it is run by a user with UID less than 1000
@@ -67,6 +90,7 @@ trap "{ rm -f $SESSION_INFO_FILE; }" EXIT
 RSERVER_OPTIONS="--auth-none 0 --auth-pam-helper rstudio_auth --www-port $RSTUDIO_PORT --auth-minimum-user-id $UID"
 # RSERVER_OPTIONS="--auth-none 0 --auth-pam-helper rstudio_auth --www-port $RSTUDIO_PORT"
 
-rserver $RSERVER_OPTIONS
+rserver $RSERVER_OPTIONS --server-pid-file $TMPVAR_DIR --server-data-dir $TMPVAR_DIR
+
 #   exec rserver "${@}"
 

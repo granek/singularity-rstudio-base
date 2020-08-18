@@ -1,10 +1,10 @@
 BootStrap: library
-From: granek/default/singularity-rstudio:3.6.1
+From: granek/default/singularity-rstudio:4.0.2
 
 %labels
     Maintainer Josh Granek
     Image_Name singularity-rstudio-base
-    Image_Version singularity-rstudio-base_0002
+    Image_Version singularity-rstudio-base_0003
 
 %runscript
   exec port_and_password "${@}"
@@ -19,7 +19,6 @@ From: granek/default/singularity-rstudio:3.6.1
   exec port_and_password "${@}"
 
 %environment
-  export PATH=/usr/lib/rstudio-server/bin:${PATH}
   export SHELL=/bin/bash
   export LC_ALL=en_US.UTF-8
   export LANG=en_US.UTF-8
