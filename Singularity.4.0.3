@@ -108,7 +108,8 @@ From: ubuntu:20.04
     gdebi-core \
     libssl1.1 \
     libssl-dev \
-    dpkg-sig
+    dpkg-sig \
+    python3-ldap3
 
   gpg2 --keyserver keys.gnupg.net --recv-keys 3F32EE77E331692F
 
@@ -118,15 +119,6 @@ From: ubuntu:20.04
        dpkg-sig --verify rstudio-server.deb && \
     gdebi -n rstudio-server.deb && \
     rm rstudio-server.deb
-
-  # Add support for LDAP authentication
-  wget \
-    --no-verbose \
-    -O get-pip.py \
-    "https://bootstrap.pypa.io/get-pip.py"
-  python3 get-pip.py
-  rm -f get-pip.py
-  pip3 install ldap3
 
   # Install tidyverse and packages necessary for knitting to HTML 
   Rscript -e "install.packages(pkgs = c('tidyverse','caTools','rprojroot'), \
