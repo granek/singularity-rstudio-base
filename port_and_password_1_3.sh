@@ -59,7 +59,7 @@ printf "RStudio Password:\t$RSTUDIO_PASSWORD\n" >> $SESSION_INFO_FILE
 
 cat $SESSION_INFO_FILE
 export TMPDIR="$(mktemp -d)"
-trap "{ rm -f $SESSION_INFO_FILE $TMPDIR; }" EXIT
+trap "{ rm -rf $SESSION_INFO_FILE $TMPDIR; }" EXIT
 
 
 #singularity run  --app rstudio $BIND_ARGS $SINGULARITY_IMAGE 
