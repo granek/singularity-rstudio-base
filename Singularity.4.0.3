@@ -41,14 +41,14 @@ From: ubuntu:20.04
 
 %setup
   install -Dv \
-    rstudio_auth.sh \
+    rstudio_auth_1_3.sh \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/rstudio_auth
   install -Dv \
     ldap_auth.py \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/ldap_auth
 
   install -Dv \
-    port_and_password.sh \
+    port_and_password_1_3.sh \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/port_and_password
 
 %post
