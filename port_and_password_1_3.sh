@@ -34,8 +34,8 @@ mkdir -p $SESSION_INFO_DIR
 #--------------------------------------------------------------------------------
 
 # Look for an open port to use in range $LOWERPORT to $UPPERPORT
-LOWERPORT=8780
-UPPERPORT=8799
+LOWERPORT=50000 
+UPPERPORT=65535
 for RSTUDIO_PORT in $(seq $LOWERPORT $UPPERPORT);
 do
     # RSTUDIO_PORT="`shuf -i $LOWERPORT-$UPPERPORT -n 1`"
