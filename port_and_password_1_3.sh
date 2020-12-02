@@ -44,7 +44,7 @@ do
 done
 
 # SESSION_INFO_FILE="$SESSION_INFO_DIR/session_info_$(basename $SINGULARITY_IMAGE)_${RSTUDIO_PORT}.txt"
-SESSION_INFO_FILE="$SESSION_INFO_DIR/session_info_port_${RSTUDIO_PORT}.txt"
+SESSION_INFO_FILE="$SESSION_INFO_DIR/session_info_port_${RSTUDIO_PORT}_`hostname | cut -f1 -d' '`.txt"
 echo $SESSION_INFO_FILE
 export RSTUDIO_PASSWORD="`openssl rand -base64 16 | colrm 20`"
 
