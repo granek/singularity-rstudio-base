@@ -3,10 +3,10 @@ From: ubuntu:20.04
 
 %labels
   Maintainer Josh Granek
-  R_Version 4.0.3 ###FIXME
+  R_Version MRO_4.0.2
   RStudio_Version 1.3.1093
   Image_Name singularity-rstudio-base
-  Image_Version singularity-rstudio-base_0003
+  Image_Version singularity-rstudio-base_0005
 
 %help
   This will run RStudio Server with tidyverse and support for knitting
@@ -41,19 +41,19 @@ From: ubuntu:20.04
 
 %setup
   install -Dv \
-    rstudio_auth.sh \
+    rstudio_auth_1_3.sh \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/rstudio_auth
   install -Dv \
     ldap_auth.py \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/ldap_auth
 
   install -Dv \
-    port_and_password.sh \
+    port_and_password_1_3.sh \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/port_and_password
 
 %post
   # Software versions
-  export R_VERSION=4.0.3 ###FIXME
+  export R_VERSION=4.0.3  ###FIXME
   export RSTUDIO_VERSION=1.3.1093
 
   export DEBIAN_FRONTEND=noninteractive
@@ -72,7 +72,7 @@ From: ubuntu:20.04
   export LC_ALL=en_US.UTF-8
   export LANG=en_US.UTF-8
 
-  # Install R 
+  # Install R
   ###FIXME
   echo "deb http://cran.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/r.list
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
@@ -121,11 +121,11 @@ From: ubuntu:20.04
     gdebi -n rstudio-server.deb && \
     rm rstudio-server.deb
 
-  # Install tidyverse and packages necessary for knitting to HTML 
-  Rscript -e "install.packages(pkgs = c('tidyverse','caTools','rprojroot'), \
-     repos='https://cran.revolutionanalytics.com/', \
+  # Install tidyverse, here, and packages necessary for knitting to HTML 
+  Rscript -e "install.packages(pkgs = c('tidyverse','here','caTools','rprojroot','Rcpp', 'base64enc', 'digest', 'evaluate', 'glue', 'highr', 'htmltools', 'jsonlite', 'knitr', 'magrittr', 'markdown', 'mime', 'rmarkdown', 'rprojroot', 'stringi', 'stringr', 'tinytex', 'xfun', 'yaml'), \
      dependencies=TRUE, \
      clean = TRUE)"
+  # repos='https://mirror.las.iastate.edu/CRAN/', \ ##FIXME? 
 
   # Install extra stuff
   apt-get install -y --no-install-recommends \
