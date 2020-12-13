@@ -6,7 +6,7 @@ From: ubuntu:20.04
   R_Version 4.0.3
   RStudio_Version 1.3.1093
   Image_Name singularity-rstudio-base
-  Image_Version singularity-rstudio-base_0003
+  Image_Version singularity-rstudio-base_0004
 
 %help
   This will run RStudio Server with tidyverse and support for knitting
@@ -41,14 +41,14 @@ From: ubuntu:20.04
 
 %setup
   install -Dv \
-    rstudio_auth.sh \
+    rstudio_auth_1_3.sh \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/rstudio_auth
   install -Dv \
     ldap_auth.py \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/ldap_auth
 
   install -Dv \
-    port_and_password.sh \
+    port_and_password_1_3.sh \
     ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/port_and_password
 
 %post
@@ -120,9 +120,9 @@ From: ubuntu:20.04
     gdebi -n rstudio-server.deb && \
     rm rstudio-server.deb
 
-  # Install tidyverse and packages necessary for knitting to HTML 
-  Rscript -e "install.packages(pkgs = c('tidyverse','caTools','rprojroot'), \
-     repos='https://cran.revolutionanalytics.com/', \
+  # Install tidyverse, here, and packages necessary for knitting to HTML 
+  Rscript -e "install.packages(pkgs = c('tidyverse','here','caTools','rprojroot','Rcpp', 'base64enc', 'digest', 'evaluate', 'glue', 'highr', 'htmltools', 'jsonlite', 'knitr', 'magrittr', 'markdown', 'mime', 'rmarkdown', 'rprojroot', 'stringi', 'stringr', 'tinytex', 'xfun', 'yaml'), \
+     repos='https://mirror.las.iastate.edu/CRAN/', \
      dependencies=TRUE, \
      clean = TRUE)"
 
